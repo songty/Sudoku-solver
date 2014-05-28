@@ -9,6 +9,7 @@ var Square = function(num, index) {
 	this.column = (index % 9) + 1;
 	this.region = determineRegion(this.row, this.column);
 	this.solution = ' ';
+	this.falses = 0;
 	if (num !== " ") {
 		var i = 1;
 		while (i < 10) {
@@ -17,12 +18,9 @@ var Square = function(num, index) {
 		}
 		this[num] = true;
 		this.solution = parseInt(num);
+		this.falses = 8;
 	} 
 };
-
-var allSquares = [];
-
-var inputString = '158 2  6 2   8  9  3  7 8 2 6 74      4 6 7      19 5 4 9 3  2  2  5   8 7  9 413';
 
 var createStringArray = function(str) {
 	var array = [];
@@ -71,10 +69,47 @@ var drawPuzzle = function(sudoku) {
 	console.log('+---------+---------+---------+');
 	drawThreeRows(sudoku, 54);
 	console.log('+---------+---------+---------+');
-	// for(var i = 0; i < 9; i++) {
-	// 	console.log('| ' + puzzle[i].solution + '  ' + puzzle[i + 1]);
-	// }	
 };
+
+var checkForSolution = function (obj) {
+	if (obj.solution === ' ') {
+		return false;
+	} else {
+		return true;
+	}
+};
+
+var checkRow = function (obj) {
+	allSquares.forEach(function(square) {
+		if((square.solution !== ' ') && (obj.row === square.row) && (!_.contains(_.keys(obj), square.solution.toString()))) {
+			obj[square.solution] = false;
+			obj.falses++;
+		}
+	});
+};
+
+var checkColumn = function (obj) {
+	allSquares.forEach(function(square) {
+		if((square.solution !== ' ') && (obj.column === square.column) && (!_.contains(_.keys(obj), square.solution.toString()))) {
+			console.log(!obj[square.solution]);
+			obj[square.solution] = false;
+			obj.falses++;
+		}
+	});
+};
+
+var checkRegion = function (obj) {
+	allSquares.forEach(function(square) {
+		if((square.solution !== ' ') && (obj.region === square.region) && (!_.contains(_.keys(obj), square.solution.toString()))) {
+			obj[square.solution] = false;
+			obj.falses++;
+		}
+	});
+};
+
+var allSquares =[];
+
+var inputString = '158 2  6 2   8  9  3  7 8 2 6 74      4 6 7      19 5 4 9 3  2  2  5   8 7  9 413';
 
 var stringArray = createStringArray(inputString);
 for(var i = 0; i < 81; i++) {
@@ -82,9 +117,16 @@ for(var i = 0; i < 81; i++) {
 	allSquares.push(square);
 }
 
-drawPuzzle(allSquares);
+// drawPuzzle(allSquares);
 
-testSqaure = new Square(' ', 30);
+checkRow(allSquares[10]);
+checkColumn(allSquares[10]);
+checkRegion(allSquares[10]);
+console.log(allSquares[10]);
+
+// console.log(_.keys(allSquares[0]));
+
+testSqaure = new Square(' ', 0);
 
 console.log(testSqaure);
 // var game = new Sudoku(str);
