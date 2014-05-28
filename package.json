@@ -1,0 +1,26 @@
+{
+  "name": "Sudoku-solver",
+  "version": "0.1.0",
+  "description": "Solves Sudokus",
+  "main": "sudoku.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/songty/Sudoku-solver.git"
+  },
+  "keywords": [
+    "Solve",
+    "Sudoku"
+  ],
+  "author": "Tian & Josh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/songty/Sudoku-solver/issues"
+  },
+  "homepage": "https://github.com/songty/Sudoku-solver"
+}
