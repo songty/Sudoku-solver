@@ -4,6 +4,20 @@ var _ = require('lodash');
 var Sudoku = function() {
 };
 
+Sudoku.prototype.solve = function() {
+	if (checkForSolution(allSquares[0])) {
+
+	} else {
+		checkRow(allSquares[0]);
+		checkColumn(allSquares[0]);
+		checkRegion(allSquares[0]);
+		if (allSquares[0].falses === 8) {
+
+		}
+	}
+
+};
+
 var Square = function(num, index) {
 	this.row = Math.floor(index / 9) + 1;
 	this.column = (index % 9) + 1;
@@ -19,7 +33,13 @@ var Square = function(num, index) {
 		this[num] = true;
 		this.solution = parseInt(num);
 		this.falses = 8;
-	} 
+	// } else {
+	// 	var n = 1;
+	// 	while (n < 10) {
+	// 		this[n.toString()] = '';
+	// 		n++;
+	// 	}		
+	}
 };
 
 var createStringArray = function(str) {
@@ -107,6 +127,14 @@ var checkRegion = function (obj) {
 	});
 };
 
+var setSolution = function (obj) {
+	_.forEach(obj, function(prop) {
+		if (prop === '') {
+			prop = true;
+		}
+	});
+};
+
 var allSquares =[];
 
 var inputString = '158 2  6 2   8  9  3  7 8 2 6 74      4 6 7      19 5 4 9 3  2  2  5   8 7  9 413';
@@ -119,15 +147,15 @@ for(var i = 0; i < 81; i++) {
 
 // drawPuzzle(allSquares);
 
-checkRow(allSquares[10]);
-checkColumn(allSquares[10]);
-checkRegion(allSquares[10]);
-console.log(allSquares[10]);
+checkRow(allSquares[69]);
+checkColumn(allSquares[69]);
+checkRegion(allSquares[69]);
+console.log(allSquares[69]);
 
-// console.log(_.keys(allSquares[0]));
+// // console.log(_.keys(allSquares[0]));
 
-testSqaure = new Square(' ', 0);
+// testSqaure = new Square(' ', 0);
 
-console.log(testSqaure);
+// console.log(testSqaure);
 // var game = new Sudoku(str);
 // game.solve();
