@@ -8,6 +8,7 @@ var Square = function(num, index) {
 	this.row = Math.floor(index / 9) + 1;
 	this.column = (index % 9) + 1;
 	this.region = determineRegion(this.row, this.column);
+	this.solution = ' ';
 	if (num !== " ") {
 		var i = 1;
 		while (i < 10) {
@@ -50,11 +51,38 @@ var determineRegion = function(row, column) {
 	return intersect[0];
 };
 
+var drawThreeRows = function(puzzle, i) {
+	var n = i + 27;
+	while (i < n) {
+		console.log('| ' + puzzle[i].solution + '  ' + puzzle[i + 1].solution +
+			'  ' + puzzle[i + 2].solution + ' | ' + puzzle[i + 3].solution +
+			'  ' + puzzle[i + 4].solution + '  ' + puzzle[i + 5].solution +
+			' | ' + puzzle[i + 6].solution + '  ' + puzzle[i + 7].solution +
+			'  ' + puzzle[i + 8].solution + ' |');
+		i = i + 9;
+	}
+};
+
+var drawPuzzle = function(sudoku) {
+	console.log('+---------+---------+---------+');
+	drawThreeRows(sudoku, 0);
+	console.log('+---------+---------+---------+');
+	drawThreeRows(sudoku, 27);
+	console.log('+---------+---------+---------+');
+	drawThreeRows(sudoku, 54);
+	console.log('+---------+---------+---------+');
+	// for(var i = 0; i < 9; i++) {
+	// 	console.log('| ' + puzzle[i].solution + '  ' + puzzle[i + 1]);
+	// }	
+};
+
 var stringArray = createStringArray(inputString);
 for(var i = 0; i < 81; i++) {
 	var square = new Square(stringArray[i], i);
 	allSquares.push(square);
 }
+
+drawPuzzle(allSquares);
 
 testSqaure = new Square(' ', 30);
 
