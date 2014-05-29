@@ -4,18 +4,21 @@ var _ = require('lodash');
 var Sudoku = function() {
 };
 
+var keyCheck = ['1','2','3','4','5','6','7','8','9'];
+
+var solutions = 0;
+
 Sudoku.prototype.solve = function() {
-	if (checkForSolution(allSquares[0])) {
-
-	} else {
-		checkRow(allSquares[0]);
-		checkColumn(allSquares[0]);
-		checkRegion(allSquares[0]);
-		if (allSquares[0].falses === 8) {
-
-		}
+	if (solutions < 81) {
+		solutions = 0;
+		allSquares.forEach(function(square) {
+			solveOneSquare(square);
+		});
+		this.solve();
 	}
-
+	else {
+		drawPuzzle(allSquares);
+	}
 };
 
 var Square = function(num, index) {
@@ -39,6 +42,26 @@ var Square = function(num, index) {
 	// 		this[n.toString()] = '';
 	// 		n++;
 	// 	}		
+	}
+};
+
+var solveOneSquare = function(square) {
+	if (checkForSolution(square)) {
+		solutions++;
+	} else {
+		checkRow(square);
+		checkColumn(square);
+		checkRegion(square);
+		if (square.falses === 8) {
+			var foundKeys = _.intersection(_.keys(square), keyCheck);
+			var solutionKey = 45 - _.reduce(foundKeys, function(sum, n) {
+			return sum + parseInt(n);
+			}, 0);
+			square.solution = solutionKey;
+			var thisObject = square;
+			thisObject[solutionKey.toString()] = true;
+			solutions++;
+		}
 	}
 };
 
@@ -111,7 +134,6 @@ var checkRow = function (obj) {
 var checkColumn = function (obj) {
 	allSquares.forEach(function(square) {
 		if((square.solution !== ' ') && (obj.column === square.column) && (!_.contains(_.keys(obj), square.solution.toString()))) {
-			console.log(!obj[square.solution]);
 			obj[square.solution] = false;
 			obj.falses++;
 		}
@@ -147,11 +169,18 @@ for(var i = 0; i < 81; i++) {
 
 // drawPuzzle(allSquares);
 
-checkRow(allSquares[69]);
-checkColumn(allSquares[69]);
-checkRegion(allSquares[69]);
-console.log(allSquares[69]);
+// checkRow(allSquares[25]);
+// checkColumn(allSquares[25]);
+// checkRegion(allSquares[25]);
+// console.log(allSquares[25]);
+// var foundKeys = _.intersection(_.keys(allSquares[25]), keyCheck);
+// console.log(foundKeys);
+// console.log(45 - _.reduce(foundKeys, function(sum, n) {
+// 	return sum + parseInt(n);
+// }, 0));
 
+var testSudoku = new Sudoku();
+testSudoku.solve();
 // // console.log(_.keys(allSquares[0]));
 
 // testSqaure = new Square(' ', 0);
