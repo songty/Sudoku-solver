@@ -159,7 +159,8 @@ var setSolution = function (obj) {
 
 var allSquares =[];
 
-var inputString = '158 2  6 2   8  9  3  7 8 2 6 74      4 6 7      19 5 4 9 3  2  2  5   8 7  9 413';
+
+var inputString = '     8  3 16 2 9 7 3   46           9 5   2   2 13   9  3    2  7   5         4  ';
 
 var stringArray = createStringArray(inputString);
 for(var i = 0; i < 81; i++) {
@@ -167,20 +168,43 @@ for(var i = 0; i < 81; i++) {
 	allSquares.push(square);
 }
 
+var regionArray = [];
+var solveRegion = function (cb) {
+	allSquares.forEach(function (square) {
+	if (square.region === 3) {
+			regionArray.push(square);
+		}
+	});
+	cb();
+};
+
+
+
+
 // drawPuzzle(allSquares);
 
-// checkRow(allSquares[25]);
-// checkColumn(allSquares[25]);
-// checkRegion(allSquares[25]);
-// console.log(allSquares[25]);
-// var foundKeys = _.intersection(_.keys(allSquares[25]), keyCheck);
-// console.log(foundKeys);
-// console.log(45 - _.reduce(foundKeys, function(sum, n) {
-// 	return sum + parseInt(n);
-// }, 0));
+checkRow(allSquares[26]);
+checkColumn(allSquares[26]);
+checkRegion(allSquares[26]);
+console.log(allSquares[26]);
+solveRegion(function () {
+	regionArray.forEach(function(obj) {
+		if (_.has(obj, 'row')) {
+			  console.log('obj');
+			_.remove(regionArray, obj);
+		}
+	});
+});
+
+var foundKeys = _.intersection(_.keys(allSquares[26]), keyCheck);
+console.log(foundKeys);
+console.log(45 - _.reduce(foundKeys, function(sum, n) {
+	return sum + parseInt(n);
+}, 0));
 
 var testSudoku = new Sudoku();
-testSudoku.solve();
+drawPuzzle(allSquares);
+// testSudoku.solve();
 // // console.log(_.keys(allSquares[0]));
 
 // testSqaure = new Square(' ', 0);
