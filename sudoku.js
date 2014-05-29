@@ -169,13 +169,12 @@ for(var i = 0; i < 81; i++) {
 }
 
 var regionArray = [];
-var solveRegion = function (cb) {
+var solveRegion = function () {
 	allSquares.forEach(function (square) {
 	if (square.region === 3) {
 			regionArray.push(square);
 		}
 	});
-	cb();
 };
 
 
@@ -189,7 +188,7 @@ checkRegion(allSquares[26]);
 console.log(allSquares[26]);
 solveRegion(function () {
 	regionArray.forEach(function(obj) {
-		if (_.has(obj, 'row')) {
+		if (_.has(obj, '2')) {
 			  console.log('obj');
 			_.remove(regionArray, obj);
 		}
