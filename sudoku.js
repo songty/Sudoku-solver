@@ -149,13 +149,11 @@ var bruteForceGuess = function () {
 			guessObjArray.push(guessingArray);
 		}
 	});
-	console.log(guessObjArray.length);
 	allSquares.forEach(function(square) {
 		if (square.falses !==8) {
 			unsolvedSquares.push(square);
 		}
 	});
-	console.log(unsolvedSquares.length);
 
 	var guessWorkArray = [];
 	guessObjArray.forEach(function(array) {
@@ -166,13 +164,23 @@ var bruteForceGuess = function () {
 	for (var i = 0; i < guessWorkArray.length; i++) {
 		unsolvedSquares[i].poss = guessWorkArray[i];
 	}
-	console.log(unsolvedSquares);
-
+	console.log(unsolvedSquares[0]);
+	console.log(unsolvedSquares[2]);
+	guessRow(unsolvedSquares[0]);	
+	console.log(unsolvedSquares[2]);
 };
 
-var guessRow = function (array) {
+var guessRow = function (obj) {
 	unsolvedSquares.forEach(function(square) {
-	});
+		for (var i = 0; i < obj.poss.length; i++) {
+			var x = square.poss.length;
+			if (x > i) {
+				if((obj.row === square.row) && (!_.contains(_.keys(square), obj.poss[i].value))) {
+					console.log(square.poss[i].state);
+				}
+			}	
+		};
+	})
 };
 
 var guessColumn = function(array) {
