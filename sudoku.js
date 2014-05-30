@@ -8,7 +8,6 @@ var keyCheck = ['1','2','3','4','5','6','7','8','9'];
 
 var solutions = 0;
 var newSolutions = 0;
-var solveTimes = 0;
 
 Sudoku.prototype.solve = function() {
 	if (solutions < 81) {
@@ -18,6 +17,7 @@ Sudoku.prototype.solve = function() {
 		});
 		if (solutions === newSolutions) {
 			console.log('new strategy time');
+			bruteForceGuess();
 		} else {
 			console.log(solutions);
 			console.log(newSolutions);
@@ -45,13 +45,7 @@ var Square = function(num, index) {
 		}
 		this[num] = true;
 		this.solution = parseInt(num);
-		this.falses = 8;
-	// } else {
-	// 	var n = 1;
-	// 	while (n < 10) {
-	// 		this[n.toString()] = '';
-	// 		n++;
-	// 	}		
+		this.falses = 8;		
 	}
 };
 
@@ -132,8 +126,23 @@ var checkForSolution = function (obj) {
 	}
 };
 
-var bruteForce = function () {
+var unsolvedSquares = [];
 
+var bruteForceGuess = function () {
+	var  guessObjArray = [];
+	allSquares.forEach(function(square) {
+		var guessingArray = _.xor(keyCheck, _.intersection(_.keys(square), keyCheck));
+		if (guessingArray.length !== 0){
+			guessObjArray.push(guessingArray);
+		}
+	});
+	console.log(guessObjArray.length);
+	allSquares.forEach(function(square) {
+		if (square.falses !==8) {
+			unsolvedSquares.push(square);
+		}
+	});
+	console.log(unsolvedSquares.length);
 };
 
 var checkRow = function (obj) {
@@ -182,17 +191,7 @@ for(var i = 0; i < 81; i++) {
 	allSquares.push(square);
 }
 
-// drawPuzzle(allSquares);
 
-// checkRow(allSquares[25]);
-// checkColumn(allSquares[25]);
-// checkRegion(allSquares[25]);
-// console.log(allSquares[25]);
-// var foundKeys = _.intersection(_.keys(allSquares[25]), keyCheck);
-// console.log(foundKeys);
-// console.log(45 - _.reduce(foundKeys, function(sum, n) {
-// 	return sum + parseInt(n);
-// }, 0));
 
 drawPuzzle(allSquares);
 var testSudoku = new Sudoku();
