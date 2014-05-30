@@ -128,6 +128,19 @@ var checkForSolution = function (obj) {
 
 var unsolvedSquares = [];
 
+var objectification = function(array) {
+	array.forEach(function(str) {
+	});
+
+};
+
+var strToObj = function(str) {
+	return {
+		value : parseInt(str),
+		state : true
+	};
+};
+
 var bruteForceGuess = function () {
 	var  guessObjArray = [];
 	allSquares.forEach(function(square) {
@@ -143,7 +156,33 @@ var bruteForceGuess = function () {
 		}
 	});
 	console.log(unsolvedSquares.length);
+
+	var guessWorkArray = [];
+	guessObjArray.forEach(function(array) {
+		array = _.map(array, strToObj);
+		guessWorkArray.push(array);
+	});
+	console.log(guessWorkArray.length);
+	for (var i = 0; i < guessWorkArray.length; i++) {
+		unsolvedSquares[i].poss = guessWorkArray[i];
+	}
+	console.log(unsolvedSquares);
+
 };
+
+var guessRow = function (array) {
+	unsolvedSquares.forEach(function(square) {
+	});
+};
+
+var guessColumn = function(array) {
+
+};
+
+var guessRegion = function(array) {
+
+};
+
 
 var checkRow = function (obj) {
 	allSquares.forEach(function(square) {

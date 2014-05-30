@@ -8,8 +8,14 @@ var _ = require('../sudoku');
 // 	});
 // });
 
-describe('setSolution()', function() {
-	it('sets solution property to true', function() {
-		expect(_.setSolution({name:'f', last: '3', woe: ''})).to.be.eql(true);
+// describe('setSolution()', function() {
+// 	it('sets solution property to true', function() {
+// 		expect(_.setSolution({name:'f', last: '3', woe: ''})).to.be.eql(true);
+// 	});
+// });
+
+describe('strToObj()', function() {
+	it('turns strings into object with properties', function() {
+		expect(_.strToObj('2')).to.be.eql({value: '2', state: true});
 	});
 });
