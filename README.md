@@ -3,7 +3,7 @@
 [![Build status][travis-image]][travis-url] [![Code Climate][codeclimate-image]][codeclimate-url] [![Coverage Status][coverage-image]][coverage-url] [![Dependencies][david-image]][david-url]
 
 
-This is solver for sudoku
+This is a solver for sudoku
 
 [travis-url]: http://travis-ci.org/songty/Sudoku-solver
 [travis-image]: https://secure.travis-ci.org/songty/Sudoku-solver.png?branch=master
